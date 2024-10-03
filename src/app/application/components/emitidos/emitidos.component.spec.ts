@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { SeguimientoService } from '../../services/seguimiento/seguimiento.service';
 import { MessageService } from 'primeng/api';
 
-// Mock del servicio SeguimientoService
 class MockSeguimientoService {
   getAnio() {
     return of([{ anio: '2021' }, { anio: '2022' }]);
@@ -60,30 +59,24 @@ describe('EmitidosComponent', () => {
   });
 
   it('should fetch emitidos data when searchEmitidos is called', async () => {
-    // Espía el método getDocumentosEmitidos
     const getDocumentosEmitidosSpy = spyOn(
       seguimientoService,
       'getDocumentosEmitidos'
     ).and.callThrough();
 
-    // Configura los valores en el formulario
     component.showEntriesEmitidos.setValue({
       anio: '2022',
       mes: '01',
       oficina: 'dep',
     });
 
-    // Llama a searchEmitidos
     component.searchEmitidos();
 
-    // Espera a que las operaciones asíncronas se completen
     await fixture.whenStable();
 
-    // Verifica que getDocumentosEmitidos haya sido llamado
     expect(getDocumentosEmitidosSpy).toHaveBeenCalledTimes(1);
 
-    // Verifica que los datos emitidos sean correctos
-    expect(component.emitidos.length).toBe(1); // Basado en los datos del mock
+    expect(component.emitidos.length).toBe(1);
   });
 
   it('should export data to PDF', () => {

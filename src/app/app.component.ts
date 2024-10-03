@@ -14,10 +14,11 @@ import { SeguimientoService } from './application/services/seguimiento/seguimien
   providers: [
     SeguimientoService,
     MessageService,
-    { provide: SEGUIMIENTO_REPOSITORY_TOKEN, useClass: SeguimientoHttpRepositoryService },
+    {
+      provide: SEGUIMIENTO_REPOSITORY_TOKEN,
+      useClass: SeguimientoHttpRepositoryService,
+    },
   ],
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-
-}
+export class AppComponent {}

@@ -11,7 +11,6 @@ import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 
-// Mock del SeguimientoService
 class MockSeguimientoService {
   getAnio() {
     return of([{ anio: '2021' }, { anio: '2022' }]);
@@ -34,7 +33,7 @@ describe('PendientesComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        PendientesComponent, // Agregar PendientesComponent al array de imports, no de declarations
+        PendientesComponent,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
@@ -46,7 +45,7 @@ describe('PendientesComponent', () => {
       providers: [
         FormBuilder,
         MessageService,
-        { provide: SeguimientoService, useClass: MockSeguimientoService }, // Provee el mock
+        { provide: SeguimientoService, useClass: MockSeguimientoService },
       ],
     }).compileComponents();
 
@@ -69,36 +68,30 @@ describe('PendientesComponent', () => {
 
   it('should load years on init', () => {
     spyOn(seguimientoService, 'getAnio').and.callThrough();
-    component.ngOnInit(); // Llama a loadYears internamente
+    component.ngOnInit();
     expect(seguimientoService.getAnio).toHaveBeenCalled();
-    expect(component.anio.length).toBe(2); // Basado en el mock
+    expect(component.anio.length).toBe(2);
   });
 
   it('should fetch report data when searchReporte is called', async () => {
-    // Espía el método getDocumentosEmitidos
     const getDocumentosPendientesSpy = spyOn(
       seguimientoService,
       'getReport'
     ).and.callThrough();
 
-    // Simula un cambio en los valores del formulario
     component.showEntries.setValue({
       anio: '2022',
       mes: '01',
       oficina: 'dep',
     });
 
-    // Llama al método searchReporte manualmente si es necesario
     component.searchReporte();
 
-    // Espera a que las operaciones asíncronas se completen
     await fixture.whenStable();
 
-    // Verifica que getDocumentosEmitidos haya sido llamado
     expect(getDocumentosPendientesSpy).toHaveBeenCalledTimes(1);
 
-    // Verifica que los datos emitidos sean correctos
-    expect(component.reporte.length).toBe(1); // Basado en los datos del mock
+    expect(component.reporte.length).toBe(1);
   });
 
   it('should export data to PDF', () => {

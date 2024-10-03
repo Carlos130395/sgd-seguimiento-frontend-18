@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SidebarComponent } from './sidebar.component';
-import { RouterTestingModule } from '@angular/router/testing'; // Importa el módulo de prueba del router
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -8,10 +8,7 @@ describe('SidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        SidebarComponent,
-        RouterTestingModule  // Provee las dependencias de enrutamiento necesarias
-      ]
+      imports: [SidebarComponent, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SidebarComponent);

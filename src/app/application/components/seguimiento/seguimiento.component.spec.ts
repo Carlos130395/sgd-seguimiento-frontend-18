@@ -12,7 +12,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
-// Mock del servicio SeguimientoService
 class MockSeguimientoService {
   getFollows(codigo: string) {
     return of([{ anio: '2022', numero_DOC: '12345' }]); // Datos simulados
@@ -62,10 +61,8 @@ describe('SeguimientoComponent', () => {
   it('should call getFollows when buscarSeguimiento is called', () => {
     spyOn(seguimientoService, 'getFollows').and.callThrough();
 
-    // Simula la entrada en el formulario
     component.searchForm.patchValue({ expediente: 'EXP123' });
 
-    // Llama a buscarSeguimiento
     component.buscarSeguimiento();
 
     expect(seguimientoService.getFollows).toHaveBeenCalledWith('EXP123');
@@ -76,16 +73,12 @@ describe('SeguimientoComponent', () => {
     const messageService = TestBed.inject(MessageService);
     spyOn(messageService, 'add');
 
-    // Simula que el campo 'expediente' está vacío
     component.searchForm.patchValue({ expediente: '' });
 
-    // Llama a buscarSeguimiento
     component.buscarSeguimiento();
 
-    // Verifica que la visibilidad es falsa
     expect(component.isVisible).toBe(false);
 
-    // Verifica que el mensaje de error fue agregado a messageService
     expect(messageService.add).toHaveBeenCalledWith({
       severity: 'error',
       summary: 'Error',
@@ -93,7 +86,6 @@ describe('SeguimientoComponent', () => {
       life: 3000,
     });
   });
-
 
   it('should reset form and visibility when limpiarBusqueda is called', () => {
     component.limpiarBusqueda();
@@ -105,10 +97,8 @@ describe('SeguimientoComponent', () => {
     spyOn(seguimientoService, 'getFollows').and.callThrough();
     spyOn(component, 'exportPDF').and.callThrough();
 
-    // Simula la entrada en el formulario
     component.searchForm.patchValue({ expediente: 'EXP123' });
 
-    // Llama a exportPDF
     component.exportPDF();
 
     expect(seguimientoService.getFollows).toHaveBeenCalled();
@@ -118,10 +108,8 @@ describe('SeguimientoComponent', () => {
   it('should export data to Excel when exportarExcel is called', () => {
     spyOn(component, 'exportToExcel').and.callThrough();
 
-    // Simula la entrada en el formulario
     component.searchForm.patchValue({ expediente: 'EXP123' });
 
-    // Llama a exportarExcel
     component.exportarExcel();
 
     expect(component.exportToExcel).toHaveBeenCalled();

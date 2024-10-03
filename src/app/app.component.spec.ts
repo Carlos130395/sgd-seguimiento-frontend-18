@@ -9,9 +9,9 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AppComponent,
-        RouterTestingModule, // Importar RouterTestingModule
-        MessagesModule,      // Importar MessagesModule para <p-messages>
-        MessageModule        // Si también usas <p-message>
+        RouterTestingModule,
+        MessagesModule,
+        MessageModule,
       ],
     }).compileComponents();
   });

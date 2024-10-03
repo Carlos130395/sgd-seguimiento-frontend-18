@@ -1,4 +1,3 @@
-// shared/constant/messages.constants.ts
 export const MESSAGES = {
   ERROR: {
     SEVERITY: 'error',
